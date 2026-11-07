@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>De’cro – Home decor & aesthetic living</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3efe8;--card:#fffdf9;--ink:#33341a;--mute:#76765f;--line:#ddd6c8;--accent:#4a4d22;--gold:#c28b3c;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15150d;--card:#1f2014;--ink:#efeada;--mute:#a9a68f;--line:#34351f;--accent:#c9cc86;--gold:#e0a955;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15150d;--card:#1f2014;--ink:#efeada;--mute:#a9a68f;--line:#34351f;--accent:#c9cc86;--gold:#e0a955;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "Jost",system-ui,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;gap:12px}
+.logo{font:600 34px "Cormorant Garamond",Georgia,serif;letter-spacing:-.01em;color:var(--accent)}
+.logo small{display:block;font:500 11px "Jost",sans-serif;letter-spacing:.22em;color:var(--mute);margin-top:-4px}
+.follow{background:var(--accent);color:var(--bg);text-decoration:none;font-weight:500;padding:10px 18px;border-radius:999px;font-size:14px}
+.hero{padding:34px 5vw 18px;max-width:880px}
+h1{font:600 clamp(38px,7vw,72px)/1 "Cormorant Garamond",Georgia,serif;letter-spacing:-.02em;margin:0 0 14px;color:var(--accent)}
+.hero p{color:var(--mute);max-width:50ch;margin:0}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:20px 5vw 8px;scrollbar-width:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 16px;border-radius:999px;font:500 14px "Jost",sans-serif;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+:is(.chip,.btn,.follow,input,select,button):focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.grid{columns:2;column-gap:14px;padding:12px 5vw 40px}
+@media(min-width:700px){.grid{columns:3}}
+@media(min-width:1100px){.grid{columns:4}}
+.pin{break-inside:avoid;margin-bottom:14px;background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);position:relative}
+.pin img{display:block;width:100%;height:auto}
+.tile{aspect-ratio:2/3;display:flex;align-items:flex-end;padding:16px;font:600 24px/1.1 "Cormorant Garamond",serif;color:#fff}
+.save{position:absolute;top:10px;right:10px;background:#e60023;color:#fff;text-decoration:none;font-weight:600;font-size:13px;padding:7px 13px;border-radius:999px}
+.info{padding:12px 14px 14px}
+.info h3{font:600 20px/1.2 "Cormorant Garamond",serif;margin:0 0 2px}
+.info .meta{color:var(--mute);font-size:13px;margin:0 0 10px}
+.btn{display:inline-block;background:var(--gold);color:#1a1a0a;text-decoration:none;font:600 14px "Jost",sans-serif;padding:9px 14px;border-radius:10px;border:0;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--mute);border:1px solid var(--line);margin-left:6px}
+#admin{margin:0 5vw 24px;padding:18px;border:1px dashed var(--gold);border-radius:16px;background:var(--card);display:none;max-width:640px}
+#admin h2{font:600 24px "Cormorant Garamond",serif;margin:0 0 10px}
+#admin label{display:block;font-size:13px;color:var(--mute);margin:10px 0 4px}
+#admin input,#admin select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+#msg{font-size:13px;color:var(--mute);margin:10px 0 0}
+footer{border-top:1px solid var(--line);padding:26px 5vw 40px;color:var(--mute);font-size:14px;max-width:880px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">De’cro<small>HOME DECOR · AESTHETIC LIVING</small></div>
+  <a class="follow" id="follow" href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Follow on Pinterest</a>
+</header>
+
+<section class="hero">
+  <h1>Simple things, beautiful spaces.</h1>
+  <p>Cozy, modern home decor and easy DIY ideas. Find something you like, save it to Pinterest, or shop it directly.</p>
+</section>
+
+<div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+<main class="grid" id="ideas"></main>
+
+<footer>
+  <p>Some links are affiliate links. If you buy through them, De’cro may earn a small commission at no extra cost to you.</p>
+  <p>&copy; 2026 De’cro</p>
+</footer>
+
+<script>
+// Apnar pin gulo ekhane add korben. img: chhobir file naam (jemon "images/pin1.jpg"), url: affiliate link
+var seed=[
+ {id:"s1",title:"Make your room feel expensive",cat:"Bedroom",url:"",img:"",c:"#8a6a3b"},
+ {id:"s2",title:"Warm glow mirror corner",cat:"Lighting",url:"",img:"",c:"#5c5a2c"},
+ {id:"s3",title:"Turn a plain book into a journal",cat:"DIY",url:"",img:"",c:"#6b7a4b"},
+ {id:"s4",title:"Book nook for small spaces",cat:"Small spaces",url:"",img:"",c:"#7a5a3e"}
+];
+var pins=seed,cur="All",db=null,canEdit=false,assets=null;
+function esc(s){return String(s||"").replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function chips(){
+ var cats=["All"].concat(pins.map(function(p){return p.cat}).filter(function(v,i,a){return v&&a.indexOf(v)===i}));
+ var el=document.getElementById("chips");
+ el.innerHTML=cats.map(function(c){return '<button class="chip" aria-pressed="'+(c==cur)+'" data-c="'+esc(c)+'">'+esc(c)+'</button>'}).join("");
+}
+function render(){
+ var list=pins.filter(function(p){return cur=="All"||p.cat==cur});
+ var page=encodeURIComponent(location.href.split("#")[0]);
+ document.getElementById("ideas").innerHTML=list.map(function(p){
+  var art=p.img?'<img src="'+esc(p.img)+'" alt="'+esc(p.title)+'" loading="lazy">':'<div class="tile" style="background:linear-gradient(160deg,'+(p.c||"#6b7a4b")+',#2a2a14)">'+esc(p.title)+'</div>';
+  var save="https://pinterest.com/pin/create/button/?url="+page+"&description="+encodeURIComponent(p.title);
+  var shop=p.url?'<a class="btn" href="'+esc(p.url)+'" target="_blank" rel="sponsored nofollow noopener">Shop this</a>':'';
+  var del=(canEdit&&p.id.indexOf("s")!==0)?'<button class="btn ghost" data-del="'+esc(p.id)+'">Delete</button>':'';
+  return '<article class="pin">'+art+'<a class="save" href="'+save+'" target="_blank" rel="noopener">Save</a><div class="info"><h3>'+esc(p.title)+'</h3><p class="meta">'+esc(p.cat)+'</p>'+shop+del+'</div></article>';
+ }).join("");
+}
+document.getElementById("chips").onclick=function(e){var c=e.target.getAttribute("data-c");if(c){cur=c;chips();render()}};
+document.getElementById("ideas").onclick=async function(e){
+ var id=e.target.getAttribute("data-del");
+ if(id&&db&&confirm("Delete this pin?")){try{await db.doc("pins/"+id).delete()}catch(x){alert("Could not delete.")}}
+};
+chips();render();
+
+</script>
+</body>
+</html>
