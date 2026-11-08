@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><title>Admin – De’cro</title><meta name="robots" content="noindex"></head><body>
+<header><div class="wrap"><a class="logo" href="index.html">De’cro</a><nav><a href="index.html#ideas">Ideas</a><a class="cta" href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Follow</a></nav></div></header>
+<main class="wrap">
+<div class="box" id="login"><h2 style="margin:0 0 6px;font-size:30px">Admin login</h2><label for="em">Email</label><input id="em" type="email" autocomplete="username"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password"><p><button class="cta" id="go">Log in</button></p><p id="msg" style="color:var(--mute)"></p></div>
+<div id="panel" hidden>
+<div class="box"><div class="stats"><div><b id="tv">0</b>Page views</div><div><b id="ts">0</b>Shop clicks</div></div><button class="cta alt" id="out">Log out</button></div>
+<div class="box"><h2 style="margin:0 0 4px;font-size:30px">Add a pin</h2>
+<label for="t">Title</label><input id="t"><label for="c">Category</label><select id="c"><option>Bedroom</option><option>Living room</option><option>DIY</option><option>Small spaces</option><option>Lighting</option><option>Kitchen</option></select>
+<label for="d">Short description</label><textarea id="d" rows="2"></textarea>
+<label for="st">Steps (one per line)</label><textarea id="st" rows="4"></textarea>
+<label for="pr">Products (one per line: Name | affiliate link)</label><textarea id="pr" rows="3" placeholder="Jute rope | https://s.click.aliexpress.com/..."></textarea>
+<label for="img">Pin image</label><input id="img" type="file" accept="image/*">
+<p><button class="cta" id="add">Publish pin</button></p><p id="amsg" style="color:var(--mute)"></p></div>
+<div class="box"><h2 style="margin:0 0 6px;font-size:30px">Your pins</h2><div id="list"></div></div></div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="config.js"></script><script src="app.js"></script>
+<script>
+var $=function(i){return document.getElementById(i)};
+function show(on){$("login").hidden=on;$("panel").hidden=!on;if(on)load()}
+(async function(){if(!SB){$("msg").textContent="Supabase is not set up yet (config.js is empty).";return}var s=await SB.auth.getSession();show(!!s.data.session)})();
+$("go").onclick=async function(){if(!SB)return;var r=await SB.auth.signInWithPassword({email:$("em").value.trim(),password:$("pw").value});if(r.error)$("msg").textContent=r.error.message;else show(true)};
+$("out").onclick=async function(){await SB.auth.signOut();show(false)};
+function shrink(f){return new Promise(function(res){var im=new Image();im.onload=function(){var s=Math.min(1,900/im.width),c=document.createElement("canvas");c.width=im.width*s;c.height=im.height*s;c.getContext("2d").drawImage(im,0,0,c.width,c.height);c.toBlob(res,"image/jpeg",.82)};im.src=URL.createObjectURL(f)})}
+$("add").onclick=async function(){var m=$("amsg"),t=$("t").value.trim(),f=$("img").files[0];
+if(!t||!f){m.textContent="Title and image are required.";return}
+m.textContent="Uploading…";var path=Date.now()+".jpg",up=await SB.storage.from("pins").upload(path,await shrink(f),{contentType:"image/jpeg"});
+if(up.error){m.textContent=up.error.message;return}
+var steps=$("st").value.split("\n").map(function(x){return x.trim()}).filter(Boolean);
+var prods=$("pr").value.split("\n").map(function(l){var a=l.split("|");return{name:(a[0]||"").trim(),url:(a[1]||"").trim()}}).filter(function(p){return p.name&&p.url});
+var r=await SB.from("pins").insert({title:t,category:$("c").value,description:$("d").value.trim(),image_url:SB.storage.from("pins").getPublicUrl(path).data.publicUrl,steps:steps,products:prods});
+if(r.error){m.textContent=r.error.message;return}
+m.textContent="Published!";["t","d","st","pr","img"].forEach(function(i){$(i).value=""});load()};
+async function load(){var p=await SB.from("pins").select("*").order("created_at",{ascending:false}),c=await SB.from("clicks").select("pin_id,kind").limit(10000),v={},s={},tv=0,ts=0;
+(c.data||[]).forEach(function(x){if(x.kind=="shop"){s[x.pin_id]=(s[x.pin_id]||0)+1;ts++}else{v[x.pin_id]=(v[x.pin_id]||0)+1;tv++}});
+$("tv").textContent=tv;$("ts").textContent=ts;
+$("list").innerHTML=(p.data||[]).map(function(x){return '<div class="item"><img src="'+esc(x.image_url)+'" alt=""><div><b>'+esc(x.title)+'</b><br><small>'+(v[x.id]||0)+' views · '+(s[x.id]||0)+' shop clicks</small></div><button class="cta alt" data-del="'+x.id+'">Delete</button></div>'}).join("")||"No pins yet."}
+$("list").onclick=async function(e){var id=e.target.getAttribute("data-del");if(id&&confirm("Delete this pin?")){await SB.from("pins").delete().eq("id",id);load()}};
+</script></body></html>

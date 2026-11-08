@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><title>De’cro</title></head><body>
+<header><div class="wrap"><a class="logo" href="index.html">De’cro</a><nav><a href="index.html#ideas">Ideas</a><a class="cta" href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Follow</a></nav></div></header>
+<main class="wrap" id="pin"><p style="padding:40px 0">Loading…</p></main>
+<footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> Some links on this site are affiliate links. If you buy through them, De’cro may earn a small commission at no extra cost to you.</p><p>&copy; 2026 De’cro</p></div></footer> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="config.js"></script><script src="app.js"></script>
+<script>
+(async function(){
+var id=new URLSearchParams(location.search).get("id"),p=await getPin(id),el=document.getElementById("pin");
+if(!p){el.innerHTML='<p style="padding:40px 0">Pin not found. <a href="index.html">Back to ideas</a></p>';return}
+document.title=p.title+" – De’cro";track(p.id,"view");
+var prods=p.products.length?'<h2>What you need</h2>'+p.products.map(function(x,i){return '<div class="prod"><span>'+esc(x.name)+'</span><a class="btn shop" data-i="'+i+'" href="'+esc(x.url)+'" target="_blank" rel="sponsored nofollow noopener">Shop this</a></div>'}).join(""):"";
+var steps=p.steps.length?'<h2>How to get the look</h2><ol>'+p.steps.map(function(s){return '<li>'+esc(s)+'</li>'}).join("")+'</ol>':"";
+el.innerHTML='<div class="detail"><img src="'+esc(p.img)+'" alt="'+esc(p.title)+'"><div><div class="tag" style="font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:600">'+esc(p.cat).toUpperCase()+'</div><h1>'+esc(p.title)+'</h1><p>'+esc(p.desc)+'</p><p><a class="btn save" href="'+saveUrl(p)+'" target="_blank" rel="noopener">Save to Pinterest</a> <a class="btn" href="index.html#ideas" style="color:var(--mute)">← All ideas</a></p>'+prods+steps+'</div></div>';
+el.onclick=function(e){var i=e.target.getAttribute("data-i");if(i!==null)track(p.id,"shop",+i)};
+})();
+</script></body></html>
