@@ -1,16 +1,74 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"><title>De’cro – Home decor &amp; aesthetic living</title>
-<meta name="description" content="Cozy home decor ideas, small-space tips and DIY projects with shoppable finds.">
-<meta property="og:title" content="De’cro – Home decor &amp; aesthetic living"><meta property="og:image" content="https://decroofficial.github.io/Decro-site/good-vibes.jpg"></head><body>
-<header><div class="wrap"><a class="logo" href="index.html">De’cro</a><nav><a href="index.html#ideas">Ideas</a><a class="cta" href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Follow</a></nav></div></header>
-<main class="wrap"><section class="hero"><div><div class="eyebrow">HOME DECOR · AESTHETIC LIVING</div><h1>Simple things, beautiful spaces.</h1><p>Cozy, modern ideas for small rooms and real budgets, with step-by-step DIY and the exact products to get the look.</p><div class="btns"><a class="cta" href="#ideas">Browse ideas</a><a class="cta alt" href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Follow on Pinterest</a></div></div>
-<img src="good-vibes.jpg" alt="Cozy bedroom corner with a green lamp and plants"></section>
-<h2 id="ideas">Latest ideas</h2><p class="sub">Tap any idea for the full steps and product list.</p><div class="chips" id="chips"></div><div class="grid" id="grid"></div></main>
-<footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> Some links on this site are affiliate links. If you buy through them, De’cro may earn a small commission at no extra cost to you.</p><p>&copy; 2026 De’cro</p></div></footer> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="config.js"></script><script src="app.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%BF%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<title>De’cro – Home decor &amp; aesthetic living</title>
+<meta name="description" content="Cozy home decor ideas, DIY projects and shoppable finds for small rooms and real budgets.">
+<meta property="og:title" content="De’cro – Home decor &amp; aesthetic living"><meta property="og:image" content="https://decroofficial.github.io/Decro-site/good-vibes.jpg">
+<style>
+body{background:radial-gradient(1200px 500px at 85% -10%,rgba(194,139,60,.14),transparent 60%),var(--bg)}
+.lead{display:grid;gap:40px;padding:56px 0 36px;align-items:center}
+@media(min-width:900px){.lead{grid-template-columns:1.05fr .95fr;padding:84px 0 56px;gap:64px}}
+.lead h1{font-size:clamp(46px,8vw,86px);line-height:.98;margin:14px 0 18px}
+.lead p{color:var(--mute);font-size:19px;max-width:44ch;margin:0 0 28px}
+.pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.pills span{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:13px;color:var(--mute)}
+.collage{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.collage img{width:100%;object-fit:cover;border-radius:20px;display:block;box-shadow:0 18px 40px -22px rgba(0,0,0,.55)}
+.collage .a{grid-row:span 2;height:100%;min-height:360px}.collage .b,.collage .c{height:172px}
+@media(min-width:900px){.collage .b,.collage .c{height:230px}.collage .a{min-height:472px}}
+.sec{padding:26px 0}
+.sec h2{margin:0 0 6px}.sec .sub{margin:0 0 20px}
+.cats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:760px){.cats{grid-template-columns:repeat(3,1fr)}}@media(min-width:1100px){.cats{grid-template-columns:repeat(6,1fr)}}
+.cat{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line);cursor:pointer;padding:0;background:var(--card);text-align:left;color:#fff;font:inherit}
+.cat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.cat:hover img{transform:scale(1.06)}
+.cat:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(20,16,6,.78))}
+.cat b{position:absolute;left:14px;bottom:30px;z-index:1;font:600 22px "Cormorant Garamond",serif}
+.cat small{position:absolute;left:14px;bottom:10px;z-index:1;font-size:12px;opacity:.85}
+.how{display:grid;gap:14px}@media(min-width:760px){.how{grid-template-columns:repeat(3,1fr)}}
+.how div{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:22px}
+.how b{display:block;font:600 26px "Cormorant Garamond",serif;color:var(--accent);margin-bottom:4px}
+.how span{color:var(--mute);font-size:15px}
+.pin:hover{transform:translateY(-3px);box-shadow:0 16px 30px -20px rgba(0,0,0,.5)}.pin{transition:transform .2s,box-shadow .2s}
+.shopdot{display:inline-block;margin-left:8px;font-size:11px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
+.about{display:grid;gap:18px;padding:30px 0}@media(min-width:800px){.about{grid-template-columns:1fr 1.2fr;gap:56px}}
+.about p{color:var(--mute);margin:0 0 12px}
+</style></head><body>
+<header><div class="wrap"><a class="logo" href="index.html">De’cro</a><nav><a href="#ideas">Ideas</a><a href="#cats">Categories</a><a href="#about">About</a><a class="cta" href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Follow</a></nav></div></header>
+<main class="wrap">
+<section class="lead"><div>
+<div class="eyebrow">HOME DECOR · AESTHETIC LIVING</div>
+<h1>Simple things, beautiful spaces.</h1>
+<p>Cozy, modern ideas for small rooms and real budgets, with easy DIY steps and the exact products to get the look.</p>
+<div class="btns"><a class="cta" href="#ideas">Browse ideas</a><a class="cta alt" href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Follow on Pinterest</a></div>
+<div class="pills"><span>Step-by-step ideas</span><span>Budget friendly</span><span>Shop links included</span></div>
+</div>
+<div class="collage"><img class="a" src="good-vibes.jpg" alt="Cozy bedside corner with lamp and plants"><img class="b" src="diy-book.jpg" alt="DIY aesthetic journal"><img class="c" src="tiny-room.jpg" alt="Cozy tiny room with warm lights"></div></section>
+
+<section class="sec" id="cats"><h2>Shop by category</h2><p class="sub">Pick a style and see the ideas.</p><div class="cats" id="cats"></div></section>
+
+<section class="sec"><h2>How it works</h2><p class="sub">From idea to your room in three steps.</p>
+<div class="how"><div><b>1. Get inspired</b><span>Browse cozy ideas for every corner of your home.</span></div><div><b>2. Follow the steps</b><span>Each idea comes with simple steps you can copy.</span></div><div><b>3. Shop the look</b><span>Tap Shop to get the exact products at a good price.</span></div></div></section>
+
+<section class="sec"><h2 id="ideas">Latest ideas</h2><p class="sub">Tap any idea for the full steps and product list.</p>
+<div class="chips" id="chips"></div><div class="grid" id="grid"></div></section>
+
+<section class="about" id="about"><h2 style="margin-top:10px">About De’cro</h2><div><p>De’cro shares cozy, modern home decor and DIY inspiration made simple. Every idea is built around warm light, natural textures and small details that make a room feel like yours.</p><p>Where an idea uses a specific product, you will find a Shop link so you can get the same look without the search.</p></div></section>
+</main>
+<footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> Some links on this site are affiliate links. If you buy through them, De’cro may earn a small commission at no extra cost to you.</p><p>&copy; 2026 De’cro · <a href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Pinterest</a></p></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="config.js"></script><script src="app.js"></script>
 <script>
-var cur="All",all=[];
-function draw(){var c=["All"].concat(all.map(function(p){return p.cat}).filter(function(v,i,a){return v&&a.indexOf(v)===i}));
-document.getElementById("chips").innerHTML=c.map(function(x){return '<button class="chip" aria-pressed="'+(x==cur)+'" data-c="'+esc(x)+'">'+esc(x)+'</button>'}).join("");
-document.getElementById("grid").innerHTML=all.filter(function(p){return cur=="All"||p.cat==cur}).map(function(p){return '<a class="pin" href="pin.html?id='+encodeURIComponent(p.id)+'"><img src="'+esc(p.img)+'" alt="'+esc(p.title)+'" loading="lazy"><div class="info"><div class="tag">'+esc(p.cat)+'</div><h3>'+esc(p.title)+'</h3></div></a>'}).join("")}
-document.getElementById("chips").onclick=function(e){var c=e.target.getAttribute("data-c");if(c){cur=c;draw()}};
+var cur="All",all=[],FEATURED=["Lamps","Mirrors","Wall art","DIY","Organizers","Small spaces"];
+function draw(){
+ var cats=["All"].concat(all.map(function(p){return p.cat}).filter(function(v,i,a){return v&&a.indexOf(v)===i}));
+ document.getElementById("chips").innerHTML=cats.map(function(x){return '<button class="chip" aria-pressed="'+(x==cur)+'" data-c="'+esc(x)+'">'+esc(x)+'</button>'}).join("");
+ document.getElementById("grid").innerHTML=all.filter(function(p){return cur=="All"||p.cat==cur}).map(function(p){
+  return '<a class="pin" href="pin.html?id='+encodeURIComponent(p.id)+'"><img src="'+esc(p.img)+'" alt="'+esc(p.title)+'" loading="lazy"><div class="info"><div class="tag">'+esc(p.cat)+(p.products.length?'<span class="shopdot">Shop</span>':'')+'</div><h3>'+esc(p.title)+'</h3></div></a>'}).join("");
+ document.getElementById("cats").innerHTML=FEATURED.map(function(c){var m=all.filter(function(p){return p.cat==c});return m.length?'<button class="cat" data-c="'+esc(c)+'"><img src="'+esc(m[0].img)+'" alt="" loading="lazy"><b>'+esc(c)+'</b><small>'+m.length+' idea'+(m.length>1?'s':'')+'</small></button>':""}).join("");
+}
+function pick(e){var t=e.target.closest("[data-c]");if(t){cur=t.getAttribute("data-c");draw();document.getElementById("ideas").scrollIntoView({behavior:"smooth"})}}
+document.getElementById("chips").onclick=pick;document.getElementById("cats").onclick=pick;
 getPins().then(function(p){all=p;draw()});
 </script></body></html>
