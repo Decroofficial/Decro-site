@@ -35,6 +35,31 @@ body{background:radial-gradient(1200px 500px at 85% -10%,rgba(194,139,60,.14),tr
 .shopdot{display:inline-block;margin-left:8px;font-size:11px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase}
 .about{display:grid;gap:18px;padding:30px 0}@media(min-width:800px){.about{grid-template-columns:1fr 1.2fr;gap:56px}}
 .about p{color:var(--mute);margin:0 0 12px}
+
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 0 12px;scroll-behavior:smooth}
+.rail::-webkit-scrollbar,.hs::-webkit-scrollbar{display:none}
+.rail>*{flex:none;scroll-snap-align:start}
+.rail .cat{width:160px;aspect-ratio:4/5}
+@media(min-width:760px){.rail .cat{width:200px}}
+.rail .pin{width:210px;margin:0}
+@media(min-width:760px){.rail .pin{width:250px}}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:12px}
+.arrows{display:none;gap:8px}@media(min-width:760px){.arrows{display:flex}}
+.arrows button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:20px;cursor:pointer}
+.arrows button:hover{background:var(--accent);color:var(--on)}
+.hwrap{position:relative}
+.hs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:22px;scroll-behavior:smooth;box-shadow:0 22px 50px -26px rgba(0,0,0,.6)}
+.slide{flex:0 0 100%;scroll-snap-align:center;position:relative;display:block;text-decoration:none;color:#fff;aspect-ratio:4/5;background:var(--card)}
+@media(min-width:900px){.slide{aspect-ratio:1/1.05}}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(18,14,6,.82))}
+.slide .cap{position:absolute;left:20px;right:20px;bottom:46px;z-index:1}
+.slide .cap small{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#f1cf90;font-weight:600}
+.slide .cap b{display:block;font:600 clamp(24px,3vw,32px)/1.1 "Cormorant Garamond",serif;margin:4px 0 10px}
+.slide .cap span{display:inline-block;background:#fff;color:#2a2a14;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600}
+.dots{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:7px;z-index:2}
+.dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:all .25s}
+.dots i.on{width:22px;border-radius:6px;background:#fff}
 </style></head><body>
 <header><div class="wrap"><a class="logo" href="index.html">De’cro</a><nav><a href="#ideas">Ideas</a><a href="#cats">Categories</a><a href="#about">About</a><a class="cta" href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Follow</a></nav></div></header>
 <main class="wrap">
@@ -45,9 +70,10 @@ body{background:radial-gradient(1200px 500px at 85% -10%,rgba(194,139,60,.14),tr
 <div class="btns"><a class="cta" href="#ideas">Browse ideas</a><a class="cta alt" href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Follow on Pinterest</a></div>
 <div class="pills"><span>Step-by-step ideas</span><span>Budget friendly</span><span>Shop links included</span></div>
 </div>
-<div class="collage"><img class="a" src="good-vibes.jpg" alt="Cozy bedside corner with lamp and plants"><img class="b" src="diy-book.jpg" alt="DIY aesthetic journal"><img class="c" src="tiny-room.jpg" alt="Cozy tiny room with warm lights"></div></section>
+<div class="hwrap"><div class="hs" id="hs"><a class="slide" href="#ideas"><img src="good-vibes.jpg" alt=""><div class="cap"><small>Featured</small><b>Cozy bedside corner</b><span>View ideas</span></div></a></div><div class="dots" id="dots"></div></div></section>
 
-<section class="sec" id="cats"><h2>Shop by category</h2><p class="sub">Pick a style and see the ideas.</p><div class="cats" id="cats"></div></section>
+<section class="sec" id="cats"><div class="sh"><div><h2>Shop by category</h2><p class="sub">Swipe to explore, tap to see the ideas.</p></div><div class="arrows"><button data-r="cats" data-d="-1" aria-label="Previous">&#8249;</button><button data-r="cats" data-d="1" aria-label="Next">&#8250;</button></div></div><div class="rail" id="cats"></div></section>
+<section class="sec"><div class="sh"><div><h2>Trending ideas</h2><p class="sub">Shop-ready ideas people are saving right now.</p></div><div class="arrows"><button data-r="trend" data-d="-1" aria-label="Previous">&#8249;</button><button data-r="trend" data-d="1" aria-label="Next">&#8250;</button></div></div><div class="rail" id="trend"></div></section>
 
 <section class="sec"><h2>How it works</h2><p class="sub">From idea to your room in three steps.</p>
 <div class="how"><div><b>1. Get inspired</b><span>Browse cozy ideas for every corner of your home.</span></div><div><b>2. Follow the steps</b><span>Each idea comes with simple steps you can copy.</span></div><div><b>3. Shop the look</b><span>Tap Shop to get the exact products at a good price.</span></div></div></section>
@@ -60,15 +86,28 @@ body{background:radial-gradient(1200px 500px at 85% -10%,rgba(194,139,60,.14),tr
 <footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> Some links on this site are affiliate links. If you buy through them, De’cro may earn a small commission at no extra cost to you.</p><p>&copy; 2026 De’cro · <a href="https://www.pinterest.com/decroofficial/" target="_blank" rel="noopener">Pinterest</a></p></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="config.js"></script><script src="app.js"></script>
 <script>
-var cur="All",all=[],FEATURED=["Lamps","Mirrors","Wall art","DIY","Organizers","Small spaces"];
+var cur="All",all=[],FEATURED=["Lamps","Mirrors","Wall art","DIY","Organizers","Small spaces"],auto=null;
+function card(p){return '<a class="pin" href="pin.html?id='+encodeURIComponent(p.id)+'"><img src="'+esc(p.img)+'" alt="'+esc(p.title)+'" loading="lazy"><div class="info"><div class="tag">'+esc(p.cat)+(p.products.length?'<span class="shopdot">Shop</span>':'')+'</div><h3>'+esc(p.title)+'</h3></div></a>'}
+function drawHero(){
+ var f=all.filter(function(p){return p.img&&p.products.length}).slice(0,5);if(!f.length)return;
+ var hs=document.getElementById("hs");
+ hs.innerHTML=f.map(function(p){return '<a class="slide" href="pin.html?id='+encodeURIComponent(p.id)+'"><img src="'+esc(p.img)+'" alt="'+esc(p.title)+'"><div class="cap"><small>'+esc(p.cat)+'</small><b>'+esc(p.title)+'</b><span>See the idea</span></div></a>'}).join("");
+ document.getElementById("dots").innerHTML=f.map(function(_,i){return '<i data-i="'+i+'"'+(i?'':' class="on"')+'></i>'}).join("");
+ hs.scrollLeft=0;
+}
+function setDot(){var hs=document.getElementById("hs"),i=Math.round(hs.scrollLeft/hs.clientWidth);[].forEach.call(document.querySelectorAll("#dots i"),function(d,k){d.className=k==i?"on":""})}
+function stopAuto(){if(auto){clearInterval(auto);auto=null}}
+function startAuto(){if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;var hs=document.getElementById("hs");auto=setInterval(function(){var n=document.querySelectorAll("#dots i").length;if(n<2)return;var i=(Math.round(hs.scrollLeft/hs.clientWidth)+1)%n;hs.scrollTo({left:i*hs.clientWidth,behavior:"smooth"})},4500)}
 function draw(){
  var cats=["All"].concat(all.map(function(p){return p.cat}).filter(function(v,i,a){return v&&a.indexOf(v)===i}));
  document.getElementById("chips").innerHTML=cats.map(function(x){return '<button class="chip" aria-pressed="'+(x==cur)+'" data-c="'+esc(x)+'">'+esc(x)+'</button>'}).join("");
- document.getElementById("grid").innerHTML=all.filter(function(p){return cur=="All"||p.cat==cur}).map(function(p){
-  return '<a class="pin" href="pin.html?id='+encodeURIComponent(p.id)+'"><img src="'+esc(p.img)+'" alt="'+esc(p.title)+'" loading="lazy"><div class="info"><div class="tag">'+esc(p.cat)+(p.products.length?'<span class="shopdot">Shop</span>':'')+'</div><h3>'+esc(p.title)+'</h3></div></a>'}).join("");
+ document.getElementById("grid").innerHTML=all.filter(function(p){return cur=="All"||p.cat==cur}).map(card).join("");
  document.getElementById("cats").innerHTML=FEATURED.map(function(c){var m=all.filter(function(p){return p.cat==c});return m.length?'<button class="cat" data-c="'+esc(c)+'"><img src="'+esc(m[0].img)+'" alt="" loading="lazy"><b>'+esc(c)+'</b><small>'+m.length+' idea'+(m.length>1?'s':'')+'</small></button>':""}).join("");
+ document.getElementById("trend").innerHTML=all.filter(function(p){return p.products.length}).slice(0,8).map(card).join("");
 }
 function pick(e){var t=e.target.closest("[data-c]");if(t){cur=t.getAttribute("data-c");draw();document.getElementById("ideas").scrollIntoView({behavior:"smooth"})}}
 document.getElementById("chips").onclick=pick;document.getElementById("cats").onclick=pick;
-getPins().then(function(p){all=p;draw()});
+document.addEventListener("click",function(e){var b=e.target.closest("[data-r]");if(b){var r=document.getElementById(b.getAttribute("data-r"));r.scrollBy({left:(+b.getAttribute("data-d"))*r.clientWidth*.8,behavior:"smooth"})}var d=e.target.closest("#dots i");if(d){stopAuto();var hs=document.getElementById("hs");hs.scrollTo({left:(+d.getAttribute("data-i"))*hs.clientWidth,behavior:"smooth"})}});
+var hs0=document.getElementById("hs");hs0.addEventListener("scroll",setDot,{passive:true});["touchstart","pointerdown","mouseenter"].forEach(function(ev){hs0.addEventListener(ev,stopAuto,{passive:true})});
+getPins().then(function(p){all=p;draw();drawHero();startAuto()});
 </script></body></html>
